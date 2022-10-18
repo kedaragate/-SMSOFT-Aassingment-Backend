@@ -4,9 +4,7 @@ const random = require("random");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-mongoose.connect(
-  "mongodb+srv://kedaragate:bekedaragate@cluster0.nfq4osw.mongodb.net/?retryWrites=true&w=majority"
-);
+mongoose.connect(process.env.MONGO_URI);
 // 'mongodb://localhost:27017/test'
 // use `await mongoose.connect('mongodb://user:password@localhost:27017/test');` if your database has auth enabled
 
@@ -93,6 +91,6 @@ app.delete("/users/:id", (req, res) => {
 
   res.json(newUsers);
 });
-app.listen(3000, () => {
+app.listen(process.env.PORT, () => {
   console.log(`Server running at port 3000`);
 });
