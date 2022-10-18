@@ -9,8 +9,8 @@ mongoose.connect(process.env.MONGO_URI)
 let db=mongoose.connection;
 
 
-db.on("error",()=>{console.log("error in db connection"})
-db.once("open",()=>{console.log("db connection successful"})
+db.on("error",()=>{console.log("error in db connection")})
+db.once("open",()=>{console.log("db connection successful")})
 
 
 
