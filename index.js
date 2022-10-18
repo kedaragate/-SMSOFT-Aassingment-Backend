@@ -15,8 +15,11 @@ const users = [
   { name: "rahul", age: "28", id: 2 },
 ];
 
+
+localStorage.setItem("users", JSON.stringify(users));
+
 app.get("/users", (req, res) => {
-  res.json(users);
+  res.json(JSON.parse(localStorage.getItem("users")));
 });
 app.get("/users/:id", (req, res) => {
   let id = parseInt(req.params.id);
