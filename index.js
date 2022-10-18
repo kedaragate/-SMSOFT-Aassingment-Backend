@@ -19,7 +19,8 @@ const users = [
 localStorage.setItem("users", JSON.stringify(users));
 
 app.get("/users", (req, res) => {
-  res.json(JSON.parse(localStorage.getItem("users")));
+let usersLocalStorage=JSON.parse(localStorage.getItem("users"));
+  res.json(usersLocalStorage);
 });
 app.get("/users/:id", (req, res) => {
   let id = parseInt(req.params.id);
