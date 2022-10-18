@@ -6,9 +6,7 @@ const app = express();
 
 app.use(bodyParser.json());
 
-app.listen(3000, () => {
-  console.log(`Server running at port 3000`);
-});
+
 
 const users = [
   { name: "kedar", age: "34", id: 1 },
@@ -83,4 +81,7 @@ app.delete("/users/:id", (req, res) => {
   }
 
   res.json(newUsers);
+});
+app.listen(3000, () => {
+  console.log(`Server running at port 3000`);
 });
