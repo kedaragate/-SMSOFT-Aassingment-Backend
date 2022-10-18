@@ -1,6 +1,16 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const random = require("random");
+const mongoose=require('mongoose');
+
+mongoose.connect()
+
+let db=mongoose.connection;
+
+db.on("error",()=>{console.log("error in db connection"})
+db.once("open",()=>{console.log("db connection successful"})
+
+
 
 const app = express();
 
