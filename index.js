@@ -7,6 +7,7 @@ mongoose.connect('mongodb+srv://kedaragate:bekedaragate@cluster0.nfq4osw.mongodb
 
 let db=mongoose.connection;
 
+
 db.on("error",()=>{console.log("error in db connection"})
 db.once("open",()=>{console.log("db connection successful"})
 
