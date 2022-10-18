@@ -2,8 +2,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const random = require("random");
 const mongoose=require('mongoose');
-process.env.MONGO_URI
-mongoose.connect('mongodb+srv://kedaragate:bekedaragate@cluster0.nfq4osw.mongodb.net/?retryWrites=true&w=majority')
+require('dotenv').configure()
+
+mongoose.connect(process.env.MONGO_URI)
 
 let db=mongoose.connection;
 
