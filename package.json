@@ -1,0 +1,15 @@
+{
+  "name": "practice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "kedar agate",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "random": "^3.0.6"
+  }
+}
