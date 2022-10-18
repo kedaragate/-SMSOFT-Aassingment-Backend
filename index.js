@@ -1,36 +1,35 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const random = require("random");
-const mongoose=require('mongoose');
-require('dotenv').configure()
+const mongoose = require("mongoose");
+require("dotenv").config();
 
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(
+  "mongodb+srv://kedaragate:bekedaragate@cluster0.nfq4osw.mongodb.net/?retryWrites=true&w=majority"
+);
+// 'mongodb://localhost:27017/test'
+// use `await mongoose.connect('mongodb://user:password@localhost:27017/test');` if your database has auth enabled
 
-let db=mongoose.connection;
+let db = mongoose.connection;
 
-
-db.on("error",()=>{console.log("error in db connection")})
-db.once("open",()=>{console.log("db connection successful")})
-
-
+db.on("error", () => {
+  console.log("error in db connection");
+});
+db.once("open", () => {
+  console.log("db connection successful");
+});
 
 const app = express();
 
 app.use(bodyParser.json());
-
-
 
 const users = [
   { name: "kedar", age: "34", id: 1 },
   { name: "rahul", age: "28", id: 2 },
 ];
 
-
-localStorage.setItem("users", JSON.stringify(users));
-
 app.get("/users", (req, res) => {
-let usersLocalStorage=JSON.parse(localStorage.getItem("users"));
-  res.json(usersLocalStorage);
+  res.json(users);
 });
 app.get("/users/:id", (req, res) => {
   let id = parseInt(req.params.id);
