@@ -21,76 +21,43 @@ const app = express();
 
 app.use(bodyParser.json());
 
-const users = [
-  { name: "kedar", age: "34", id: 1 },
-  { name: "rahul", age: "28", id: 2 },
-];
-
-app.get("/users", (req, res) => {
-  res.json(users);
-});
-app.get("/users/:id", (req, res) => {
-  let id = parseInt(req.params.id);
-
-  let user = users.find((user) => user.id === id);
-  if (!user) {
-    res.status(404);
-    res.json({ message: "No such user found" });
-  }
-  res.json(user);
+const blogSchema = new mongoose.Schema({
+  id: Number,
+  title: String,
+  author: String,
+  body: String,
+  comments: [{ body: String, date: Date }],
+  date: { type: Date, default: Date.now() },
+  hidden: Boolean,
+  meta: {
+    votes: Number,
+    favs: Number,
+  },
 });
 
-app.post("/users", (req, res) => {
-  if (!req.body.name || !req.body.age) {
-    res.status(400);
-    res.json({ message: "Please enter valid details" });
-  } else {
-    let user = {
-      name: req.body.name,
-      age: req.body.age,
-      id: random.int(1, 100000),
-    };
-    res.status(200);
+const blog = mongoose.model("blog", blogSchema);
 
-    users.push(user);
-    res.json(users);
-  }
-});
+app.post("/api/blogs", (req, res) => {
+  const { title, author, body } = req.body;
+  const id = random.int(1, 100000);
+  const comments = [];
 
-app.put("/users/:id", (req, res) => {
-  let id = parseInt(req.params.id);
+  const newBlog = new blog({ title, author, body, id, comments });
 
-  let user = users.find((user) => user.id === id);
-  if (!user) {
-    res.status(404);
-    res.json({ message: "No such user found" });
-  } else {
-    let keys = Object.keys(req.body);
-
-    keys.forEach((key) => {
-      if (!user[key]) {
-        res.status(400).send({ message: "Invalid details" });
+  newBlog
+    .save()
+    .then((data) => {
+      if (!data) {
+        res.status(400).send({ message: "Something went wrong" });
       } else {
-        user[key] = req.body[key];
+        res.json(data);
       }
-      res.json(users);
+    })
+    .catch((err) => {
+      console.log(err);
     });
-  }
 });
 
-app.delete("/users/:id", (req, res) => {
-  let id = parseInt(req.params.id);
-
-  let newUsers = users.filter((user) => {
-    return user.id !== id;
-  });
-  if (!newUsers) {
-    res.status(404);
-    res.json({ message: "No such user found" });
-  }
-
-  res.json(newUsers);
-});
 app.listen(process.env.PORT, () => {
-  console.log(`Server running at port 3000`);
+  console.log(`Server running at port ${process.env.PORT}`);
 });
