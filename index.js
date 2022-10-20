@@ -2,8 +2,13 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const random = require("random");
 const mongoose = require("mongoose");
+const cors=require("cors");
+
 
 require("dotenv").config();
+const app = express();
+app.use(cors())
+app.use(bodyParser.json());
 
 mongoose.connect(process.env.MONGO_URI);
 // 'mongodb://localhost:27017/test'
@@ -18,9 +23,7 @@ db.once("open", () => {
   console.log("db connection successful");
 });
 
-const app = express();
 
-app.use(bodyParser.json());
 
 const blogSchema = new mongoose.Schema({
   id: Number,
