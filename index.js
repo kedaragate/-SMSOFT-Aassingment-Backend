@@ -57,6 +57,51 @@ app.post("/api/blogs", (req, res) => {
       console.log(err);
     });
 });
+app.get("/api/blogs", (req, res) => {
+  blog
+    .find({})
+    .then((data) => {
+      if (!data) {
+        res.status(400).send({ message: "Something went wrong" });
+      } else {
+        res.json(data);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+app.get("/api/blogs/:id", (req, res) => {
+  blog
+    .findById(req.params.id)
+    .then((data) => {
+      if (!data) {
+        res.status(400).send({ message: "Something went wrong" });
+      } else {
+        res.json(data);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+app.put("/api/blogs/:id", (req, res) => {
+  blog
+    .findByIdAndUpdate(req.params.id)
+    .then((data) => {
+      if (!data) {
+        res.status(400).send({ message: "Something went wrong" });
+      } else {
+        let keysToUpdate = Object.keys(req.body);
+        data[keysToUpdate] = req.body[keysToUpdate];
+        res.json(data);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 
 app.listen(process.env.PORT, () => {
   console.log(`Server running at port ${process.env.PORT}`);
