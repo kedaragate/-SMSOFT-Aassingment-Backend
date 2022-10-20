@@ -2,8 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const random = require("random");
 const mongoose = require("mongoose");
-const cors=require("cors");
-app.use(cors());
+
 require("dotenv").config();
 
 mongoose.connect(process.env.MONGO_URI);
