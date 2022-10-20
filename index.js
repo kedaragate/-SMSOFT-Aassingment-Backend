@@ -57,9 +57,6 @@ app.post("/api/blogs", (req, res) => {
       console.log(err);
     });
 });
-app.get("/api/blogs", (req, res) => {
-  blog.find();
-});
 
 app.listen(process.env.PORT, () => {
   console.log(`Server running at port ${process.env.PORT}`);
