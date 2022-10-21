@@ -148,5 +148,5 @@ app.delete("/api/blogs/:id", (req, res) => {
 });
 
 app.listen(process.env.PORT, () => {
-  console.log(`Server running at port ${process.env.PORT}`);
+  console.log(`Server running at ${process.env.PORT}`);
 });
