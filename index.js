@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const random = require("random");
+
 const mongoose = require("mongoose");
 const cors = require("cors");
 
@@ -124,9 +124,7 @@ app.delete("/api/blogs", (req, res) => {
         res.status(400).send({ message: "Something went wrong." });
       }
       res.json({
-        message: `Successfully deleted ${data.deletedCount} ${
-          deletedCount > 1 ? "blogs" : "blog"
-        }.`,
+        message: "Deleted all the blogs",
       });
     })
     .catch((err) => res.status(500).send({ message: err }));
@@ -134,12 +132,13 @@ app.delete("/api/blogs", (req, res) => {
 
 app.delete("/api/blogs/:id", (req, res) => {
   id = req.params.id;
+
   if (id.match(/^[0-9a-fA-F]{24}$/)) {
     blog.findByIdAndDelete(id).then((data) => {
       if (!data) {
         res.status(400).send({ message: "Something went wrong." });
       } else {
-        res.send({ message: `Successfully deleted blog ${req.body.title}` });
+        res.send({ message: `Successfully deleted blog ${req.params.id}` });
       }
     });
   } else {
