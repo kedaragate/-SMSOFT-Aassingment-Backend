@@ -1,7 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const dbConfig = require("./app/dbconfig/db.config");
+const path = require("path");
+const dbConfig = require(path.join(__dirname, "./app/dbconfig/db.config"));
+
+const blogRoutes = require(path.join(__dirname, "./app/routes/blogs.routes"));
+const userRoutes = require(path.join(__dirname, "./app/routes/user.routes"));
 
 const cors = require("cors");
 
@@ -22,10 +26,8 @@ db.once("open", () => {
   console.log("db connection successful");
 });
 
-const blogRoutes = require("./app/routes/blogs.routes");
-
 blogRoutes(app);
-const userRoutes = require("./app/routes/user.routes");
+
 userRoutes(app);
 
 app.listen(process.env.PORT, () => {

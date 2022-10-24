@@ -1,6 +1,6 @@
-const resolve = require("path");
+const path = require("path");
 
-const blog = require(resolve("../models/blogModel"));
+const blog = require(path.join(__dirname, "../models/blogModel"));
 
 exports.create = (req, res) => {
   const { title, author, body } = req.body;

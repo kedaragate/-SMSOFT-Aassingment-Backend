@@ -1,6 +1,6 @@
-const resolve = require("path");
+const path = require("path");
 const jwt = require("jsonwebtoken");
-const userModel = require(resolve("../models/userModel"));
+const userModel = require(path.join(__dirname, "../models/userModel"));
 
 require("dotenv").config();
 

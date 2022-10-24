@@ -1,6 +1,7 @@
-const resolve = require("path");
+const path = require("path");
 
-const userModel = require(resolve("../models/userModel"));
+const userModel = require(path.join(__dirname, "../models/userModel"));
+
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 

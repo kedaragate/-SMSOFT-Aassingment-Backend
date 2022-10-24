@@ -1,7 +1,10 @@
-const resolve = require("path");
-const blogController = require(resolve("../controllers/blogController"));
+const path = require("path");
+const blogController = require(path.join(
+  __dirname,
+  "../controllers/blogController"
+));
 
-const verifyToken = require(resolve("../middlewares/jwt.auth"));
+const verifyToken = require(path.join(__dirname, "../middlewares/jwt.auth"));
 
 module.exports = (app) => {
   app.post("/api/blogs", verifyToken, blogController.create);
