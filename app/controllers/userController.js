@@ -10,22 +10,30 @@ require("dotenv").config();
 exports.register = (req, res) => {
   const { firstName, lastName, emailId, role, password } = req.body;
 
-  const newUser = new userModel({
-    firstName,
-    lastName,
-    emailId,
-    role,
-    password: bcrypt.hashSync(password, 10),
-  });
+  userModel.findOne({ emailId }).then((data) => {
+    if (!data) {
+      const newUser = new userModel({
+        firstName,
+        lastName,
+        emailId,
+        role,
+        password: bcrypt.hashSync(password.toString(), 10),
+      });
 
-  newUser
-    .save()
-    .then((data) => {
-      res
-        .status(200)
-        .send({ message: `Registration successful with ${data.emailId}` });
-    })
-    .catch((err) => res.status(500).send({ message: err.message }));
+      newUser
+        .save()
+        .then((data) => {
+          res
+            .status(200)
+            .send({ message: `Registration successful with ${data.emailId}` });
+        })
+        .catch((err) => res.status(500).send({ message: err.message }));
+    } else {
+      res.status(400).send({
+        message: `User already registered with ${emailId}, Please login.`,
+      });
+    }
+  });
 };
 
 exports.login = (req, res) => {
@@ -40,10 +48,15 @@ exports.login = (req, res) => {
       let isPasswordValid = bcrypt.compareSync(password, data.password);
 
       if (!isPasswordValid) {
-        res.status(401).send({ message: "Incorrect password" });
+        res
+          .status(401)
+          .send({ isLoginSuccessFul: false, message: "Incorrect password" });
       } else {
         const token = jwt.sign(data.id, process.env.SECRET_KEY);
-        return res.send({
+
+        res.json({
+          isLoginSuccessFul: true,
+
           user: {
             id: data.id,
             email: data.emailId,
