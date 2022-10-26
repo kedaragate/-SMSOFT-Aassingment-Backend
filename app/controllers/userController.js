@@ -43,7 +43,7 @@ exports.login = (req, res) => {
     .findOne({ emailId })
     .then((data) => {
       if (!data) {
-        res.status(404).send(`no user found with ${emailId}`);
+        res.status(404).send({ message: `no user found with ${emailId}` });
       }
       let isPasswordValid = bcrypt.compareSync(password, data.password);
 
