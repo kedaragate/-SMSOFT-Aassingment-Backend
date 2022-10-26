@@ -12,7 +12,7 @@ const cors = require("cors");
 require("dotenv").config();
 
 const app = express();
-app.options("*", cors());
+app.use(cors());
 
 app.use(bodyParser.json());
 
@@ -29,7 +29,7 @@ db.once("open", () => {
 
 blogRoutes(app);
 
-userRoutes(app);
+userRoutes(app, cors);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server running at ${process.env.PORT}`);

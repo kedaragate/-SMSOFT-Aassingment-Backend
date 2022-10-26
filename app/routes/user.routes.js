@@ -4,7 +4,7 @@ const userController = require(path.join(
   "../controllers/userController"
 ));
 
-module.exports = (app) => {
-  app.post("/api/register", userController.register);
-  app.post("/api/login", userController.login);
+module.exports = (app, cors) => {
+  app.post("/api/register", cors(), userController.register);
+  app.post("/api/login", cors(), userController.login);
 };
