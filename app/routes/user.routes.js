@@ -5,6 +5,6 @@ const userController = require(path.join(
 ));
 
 module.exports = (app, cors) => {
-  app.post("/api/register", cors(), userController.register);
-  app.post("/api/login", cors(), userController.login);
+  app.post("/api/register", userController.register);
+  app.post("/api/login", userController.login);
 };
