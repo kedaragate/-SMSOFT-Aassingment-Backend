@@ -12,7 +12,6 @@ const cors = require("cors");
 require("dotenv").config();
 
 const app = express();
-
 const corsOptions = {
   origin: "*",
 
@@ -22,6 +21,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+
 app.use(bodyParser.json());
 
 mongoose.connect(dbConfig.url);
