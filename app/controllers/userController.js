@@ -44,6 +44,7 @@ exports.login = (req, res) => {
     .then((data) => {
       if (!data) {
         res.status(404).send({ message: `no user found with ${emailId}` });
+        return;
       }
       let isPasswordValid = bcrypt.compareSync(password, data.password);
 
