@@ -5,7 +5,6 @@ const blogModel = require("../models/blogModel");
 const userModel = require("../models/userModel");
 
 exports.create = (req, res) => {
-  console.log(req.body);
   const { title, author, body } = req.body;
 
   const comments = [];
@@ -100,7 +99,7 @@ exports.deleteOne = (req, res) => {
 exports.updateOne = (req, res) => {
   let id = req.params.id;
   const { title, body } = req.body;
-  console.log(id);
+
   if (id.match(/^[0-9a-fA-F]{24}$/)) {
     blogModel
       .findOneAndUpdate({ _id: id }, { title, body }, { new: true })
