@@ -104,7 +104,6 @@ exports.updateOne = (req, res) => {
     blogModel
       .findOneAndUpdate({ _id: id }, { title, body }, { new: true })
       .then((data) => {
-        console.log(data);
         if (!data) {
           res.status(400).send({ message: "Something went wrong" });
         } else {
