@@ -33,6 +33,7 @@ exports.findAll = (req, res) => {
         res.json(data);
       }
     })
+    .populate("user")
     .catch((err) => {
       console.log(err);
     });
@@ -51,6 +52,7 @@ exports.findOne = (req, res) => {
           res.json(data);
         }
       })
+      .populate("user")
       .catch((err) => {
         console.log(err);
       });

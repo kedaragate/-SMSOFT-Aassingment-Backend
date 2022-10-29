@@ -18,7 +18,7 @@ exports.register = (req, res) => {
         emailId,
         role,
         password: bcrypt.hashSync(password.toString(), 10),
-      });
+      }).popuulate("author");
 
       newUser
         .save()
