@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
+const blog = require(path.join(__dirname, "./userModel"));
 const userSchema = new Schema({
   firstName: {
     type: String,
@@ -23,7 +24,7 @@ const userSchema = new Schema({
     type: String,
     required: [true, "Password is required"],
   },
-  blogs: [{ type: Schema.Types.ObjectId, ref: "blog" }],
+  blogs: [{ type: Schema.Types.ObjectId, ref: blog }],
 });
 
 const userModel = mongoose.model("user", userSchema);
