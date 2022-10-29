@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
-const blog = require(path.join(__dirname, "./userModel"));
+const blog = require(path.join(__dirname, "./blogModel"));
 const userSchema = new Schema({
   firstName: {
     type: String,
