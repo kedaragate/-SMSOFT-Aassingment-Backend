@@ -1,41 +1,45 @@
 const path = require("path");
 
 const userModel = require(path.join(__dirname, "../models/userModel"));
-
+const blogModel = require(path.join(__dirname, "../models/blogModel"));
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { default: mongoose } = require("mongoose");
+const mongoose = require("mongoose");
 
 require("dotenv").config();
 
 exports.register = (req, res) => {
   const { firstName, lastName, emailId, role, password } = req.body;
 
-  userModel.findOne({ emailId }).then((data) => {
-    if (!data) {
-      const newUser = new userModel({
-        _id: new mongoose.Types.ObjectId(),
-        firstName,
-        lastName,
-        emailId,
-        role,
-        password: bcrypt.hashSync(password.toString(), 10),
-      });
+  userModel
+    .findOne({ emailId })
 
-      newUser
-        .save()
-        .then((data) => {
-          res
-            .status(200)
-            .send({ message: `Registration successful with ${data.emailId}` });
-        })
-        .catch((err) => res.status(500).send({ message: err.message }));
-    } else {
-      res.status(400).send({
-        message: `User already registered with ${emailId}, Please login.`,
-      });
-    }
-  });
+    .then((data) => {
+      if (!data) {
+        const newUser = new userModel({
+          _id: new mongoose.Types.ObjectId(),
+          firstName,
+          lastName,
+          emailId,
+          role,
+          password: bcrypt.hashSync(password.toString(), 10),
+        });
+
+        newUser
+
+          .save()
+          .then((data) => {
+            res.status(200).send({
+              message: `Registration successful with ${data.emailId}`,
+            });
+          })
+          .catch((err) => res.status(500).send({ message: err.message }));
+      } else {
+        res.status(400).send({
+          message: `User already registered with ${emailId}, Please login.`,
+        });
+      }
+    });
 };
 
 exports.login = (req, res) => {
@@ -43,6 +47,7 @@ exports.login = (req, res) => {
 
   userModel
     .findOne({ emailId })
+    .populate("blogs")
     .then((data) => {
       if (!data) {
         res.status(404).send({ message: `no user found with ${emailId}` });

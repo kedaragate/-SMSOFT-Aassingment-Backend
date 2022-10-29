@@ -1,18 +1,19 @@
 const path = require("path");
 
-const blog = require(path.join(__dirname, "../models/blogModel"));
-const user = require(path.join(__dirname, "../models/userModel"));
+const blogModel = require("../models/blogModel");
+
+const userModel = require("../models/userModel");
 
 exports.create = (req, res) => {
-  const { title, body } = req.body;
-  const author = user.author_id;
-  console.log(author.id);
+  console.log(req.body);
+  const { title, author, body } = req.body;
 
   const comments = [];
 
-  const newBlog = new blog({ title, author, body, comments });
+  const newBlog = new blogModel({ title, author, body, comments });
 
   newBlog
+
     .save()
     .then((data) => {
       if (!data) {
@@ -27,8 +28,9 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-  blog
+  blogModel
     .find({})
+    .populate("author", "firstName lastName _id")
     .then((data) => {
       if (!data) {
         res.status(400).send({ message: "Something went wrong" });
@@ -46,8 +48,9 @@ exports.findOne = (req, res) => {
   let id = req.params.id;
   if (id.match(/^[0-9a-fA-F]{24}$/)) {
     // Yes, it's a valid ObjectId, proceed with `findById` call.
-    blog
+    blogModel
       .findById(id)
+      .populate("author", "firstName lastName _id")
       .then((data) => {
         if (!data) {
           res.status(400).send({ message: "Something went wrong" });
@@ -65,7 +68,7 @@ exports.findOne = (req, res) => {
 };
 
 exports.deleteAll = (req, res) => {
-  blog
+  blogModel
     .deleteMany({})
     .then((data) => {
       if (!data) {
@@ -96,10 +99,13 @@ exports.deleteOne = (req, res) => {
 
 exports.updateOne = (req, res) => {
   let id = req.params.id;
+  const { title, body } = req.body;
+  console.log(id);
   if (id.match(/^[0-9a-fA-F]{24}$/)) {
-    blog
-      .findByIdAndUpdate(id)
+    blogModel
+      .findOneAndUpdate({ _id: id }, { title, body }, { new: true })
       .then((data) => {
+        console.log(data);
         if (!data) {
           res.status(400).send({ message: "Something went wrong" });
         } else {
