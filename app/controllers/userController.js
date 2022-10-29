@@ -4,6 +4,7 @@ const userModel = require(path.join(__dirname, "../models/userModel"));
 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { default: mongoose } = require("mongoose");
 
 require("dotenv").config();
 
@@ -13,6 +14,7 @@ exports.register = (req, res) => {
   userModel.findOne({ emailId }).then((data) => {
     if (!data) {
       const newUser = new userModel({
+        _id: new mongoose.Types.ObjectId(),
         firstName,
         lastName,
         emailId,

@@ -3,11 +3,11 @@ const path = require("path");
 const blog = require(path.join(__dirname, "../models/blogModel"));
 
 exports.create = (req, res) => {
-  const { title, author, body } = req.body;
+  const { title, body } = req.body;
 
   const comments = [];
 
-  const newBlog = new blog({ title, author, body, comments });
+  const newBlog = new blog({ title, author: author_id, body, comments });
 
   newBlog
     .save()
