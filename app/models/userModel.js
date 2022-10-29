@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-
-const userSchema = new mongoose.Schema({
+const { Schema } = mongoose;
+const userSchema = new Schema({
   firstName: {
     type: String,
     required: [true, "First Name is required"],
@@ -23,6 +23,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Password is required"],
   },
+  blogs: [{ type: Schema.Types.ObjectId, ref: "blog" }],
 });
 
 const userModel = mongoose.model("user", userSchema);
