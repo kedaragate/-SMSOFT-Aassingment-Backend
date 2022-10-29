@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
+const user = require(path.join(__dirname, "./userModel"));
 const blogSchema = new Schema({
   title: String,
-  author: [{ type: Schema.Types.ObjectId, ref: "user" }],
+  author: [{ type: Schema.Types.ObjectId, ref: user }],
   body: String,
   comments: [{ body: String, date: Date }],
   date: { type: Date, default: Date.now() },
