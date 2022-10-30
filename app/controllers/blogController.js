@@ -84,7 +84,7 @@ exports.deleteOne = (req, res) => {
   id = req.params.id;
 
   if (id.match(/^[0-9a-fA-F]{24}$/)) {
-    blog.findByIdAndDelete(id).then((data) => {
+    blogModel.findByIdAndDelete(id).then((data) => {
       if (!data) {
         res.status(400).send({ message: "Something went wrong." });
       } else {
