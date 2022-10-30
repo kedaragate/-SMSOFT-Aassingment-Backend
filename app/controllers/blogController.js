@@ -99,6 +99,7 @@ exports.deleteOne = (req, res) => {
 exports.updateOne = (req, res) => {
   let id = req.params.id;
   const { title, body } = req.body;
+  console.log(req.body);
 
   if (id.match(/^[0-9a-fA-F]{24}$/)) {
     blogModel
