@@ -66,19 +66,19 @@ exports.findOne = (req, res) => {
   }
 };
 
-exports.deleteAll = (req, res) => {
-  blogModel
-    .deleteMany({})
-    .then((data) => {
-      if (!data) {
-        res.status(400).send({ message: "Something went wrong." });
-      }
-      res.json({
-        message: "Deleted all the blogs",
-      });
-    })
-    .catch((err) => res.status(500).send({ message: err }));
-};
+// exports.deleteAll = (req, res) => {
+//   blogModel
+//     .deleteMany({})
+//     .then((data) => {
+//       if (!data) {
+//         res.status(400).send({ message: "Something went wrong." });
+//       }
+//       res.json({
+//         message: "Deleted all the blogs",
+//       });
+//     })
+//     .catch((err) => res.status(500).send({ message: err }));
+// };
 
 exports.deleteOne = (req, res) => {
   id = req.params.id;

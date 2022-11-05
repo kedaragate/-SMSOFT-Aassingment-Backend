@@ -14,7 +14,7 @@ module.exports = (app) => {
 
   app.put("/api/blogs/:id", verifyToken, blogController.updateOne);
 
-  app.delete("/api/blogs", verifyToken, blogController.deleteAll);
+  // app.delete("/api/blogs", verifyToken, blogController.deleteAll);
 
   app.delete("/api/blogs/:id", verifyToken, blogController.deleteOne);
 };
