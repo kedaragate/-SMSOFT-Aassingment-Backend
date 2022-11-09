@@ -1,5 +1,5 @@
 {
-  "name": "practice",
+  "name": "bookmark-app",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -15,7 +15,6 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "heroku": "^7.65.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.6.5",
     "random": "^3.0.6"

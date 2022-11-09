@@ -1,17 +1,11 @@
-const path = require("path");
-
-const blogModel = require("../models/blogModel");
-
-const userModel = require("../models/userModel");
+const bookMarkModel = require("../models/bookMarkModel");
 
 exports.create = (req, res) => {
-  const { title, author, body } = req.body;
+  const { title, link, tags } = req.body;
 
-  const comments = [];
+  const newBookMark = new bookMarkModel({ title, link, tags });
 
-  const newBlog = new blogModel({ title, author, body, comments });
-
-  newBlog
+  newBookMark
 
     .save()
     .then((data) => {
@@ -27,9 +21,8 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-  blogModel
+  bookMarkModel
     .find({})
-    .populate("author", "firstName lastName _id")
     .then((data) => {
       if (!data) {
         res.status(400).send({ message: "Something went wrong" });
@@ -46,10 +39,9 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   let id = req.params.id;
   if (id.match(/^[0-9a-fA-F]{24}$/)) {
-    // Yes, it's a valid ObjectId, proceed with `findById` call.
-    blogModel
+    bookMarkModel
       .findById(id)
-      .populate("author", "firstName lastName _id")
+
       .then((data) => {
         if (!data) {
           res.status(400).send({ message: "Something went wrong" });
@@ -66,29 +58,15 @@ exports.findOne = (req, res) => {
   }
 };
 
-// exports.deleteAll = (req, res) => {
-//   blogModel
-//     .deleteMany({})
-//     .then((data) => {
-//       if (!data) {
-//         res.status(400).send({ message: "Something went wrong." });
-//       }
-//       res.json({
-//         message: "Deleted all the blogs",
-//       });
-//     })
-//     .catch((err) => res.status(500).send({ message: err }));
-// };
-
 exports.deleteOne = (req, res) => {
   id = req.params.id;
 
   if (id.match(/^[0-9a-fA-F]{24}$/)) {
-    blogModel.findByIdAndDelete(id).then((data) => {
+    bookMarkModel.findByIdAndDelete(id).then((data) => {
       if (!data) {
         res.status(400).send({ message: "Something went wrong." });
       } else {
-        res.send({ message: `Successfully deleted blog ${req.params.id}` });
+        res.send({ message: `Successfully deleted bookmark ${req.params.id}` });
       }
     });
   } else {
@@ -98,12 +76,11 @@ exports.deleteOne = (req, res) => {
 
 exports.updateOne = (req, res) => {
   let id = req.params.id;
-  const { title, body } = req.body;
-  console.log(req.body);
+  const { title, link, tags } = req.body;
 
   if (id.match(/^[0-9a-fA-F]{24}$/)) {
-    blogModel
-      .findOneAndUpdate({ _id: id }, { title, body }, { new: true })
+    bookMarkModel
+      .findOneAndUpdate({ _id: id }, { title, link, tags }, { new: true })
       .then((data) => {
         if (!data) {
           res.status(400).send({ message: "Something went wrong" });
