@@ -1,10 +1,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const { resolve } = require("path");
-const dbConfig = resolve(".app/dbconfig/db.config.js");
+const path = require("path");
+const dbConfig = path.join(__dirname + ".app/dbconfig/db.config.js");
 
-const bookMarkRoutes = resolve("./app/routes/bookMark.routes.js");
+const bookMarkRoutes = path.join(__dirname + "./app/routes/bookMark.routes.js");
 
 const cors = require("cors");
 
