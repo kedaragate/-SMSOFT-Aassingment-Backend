@@ -1,5 +1,5 @@
-const path = require("path");
-const bookMarkModel = require(path.join(__dirname, "/models/bookMarkModel"));
+const { resolve } = require("path");
+const bookMarkModel = resolve("../models/bookMarkModel.js");
 
 exports.create = (req, res) => {
   const { title, link, tags } = req.body;
