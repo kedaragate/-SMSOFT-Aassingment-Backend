@@ -1,7 +1,7 @@
 const path = require("path");
 const bookMarkController = require(path.join(
   __dirname,
-  "../controllers/bookMarkController"
+  "/controllers/bookMarkController"
 ));
 
 module.exports = (app) => {
