@@ -32,6 +32,7 @@ db.once("open", () => {
 
 bookMarkRoutes(app);
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server running at ${process.env.PORT}`);
+const PORT = process.env.PORT;
+app.listen(PORT || 5000, () => {
+  console.log(`Server running at ${PORT}`);
 });
