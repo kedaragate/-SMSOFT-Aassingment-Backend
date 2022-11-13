@@ -1,7 +1,8 @@
 const path = require("path");
-const bookMarkController = path.join(
-  __dirname + "../controllers/bookMarkController.js"
-);
+const bookMarkController = require(path.join(
+  __dirname,
+  "../controllers/bookMarkController.js"
+));
 
 module.exports = (app) => {
   app.post("/api/bookmarks", bookMarkController.create);
